@@ -6,7 +6,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import parseCurlCommand from './parse-curl';
+// import parseCurlCommand from './parse-curl';
+import parseCurlCommand from './parse-curl-v2';
 import * as querystring from 'query-string';
 import * as jsesc from 'jsesc';
 
@@ -49,15 +50,8 @@ function getDataString(request) {
 
   const contentType = getContentType(request.headers);
 
-  if (contentType && contentType.includes('application/json')) {
-    try {
-      const parsedData = JSON.parse(request.data);
-      return { data: JSON.stringify(parsedData) };
-    } catch (error) {
-      console.error('Failed to parse JSON data:', error);
-      return { data: request.data.toString() };
-    }
-  } else if (contentType && (contentType.includes('application/xml') || contentType.includes('text/plain'))) {
+  if (contentType && (contentType.includes('application/json') || contentType.includes('application/xml') || contentType.includes('text/plain'))) {
+    console.log('request.data', request.data);
     return { data: request.data };
   }
 
