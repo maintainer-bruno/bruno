@@ -2,8 +2,10 @@ const { get, each, filter, find } = require('lodash');
 const decomment = require('decomment');
 const crypto = require('node:crypto');
 const fs = require('node:fs/promises');
+const { encodeUrl } = require('@usebruno/requests').utils;
 const { getTreePathFromCollectionToItem, mergeHeaders, mergeScripts, mergeVars, getFormattedCollectionOauth2Credentials, mergeAuth } = require('../../utils/collection');
 const { buildFormUrlEncodedPayload } = require('../../utils/form-data');
+const { preferencesUtil } = require('../../store/preferences');
 const path = require('node:path');
 
 const setAuthHeaders = (axiosRequest, request, collectionRoot) => {
@@ -265,9 +267,12 @@ const prepareRequest = async (item, collection = {}, abortController) => {
   const collectionRoot = collection?.draft ? get(collection, 'draft', {}) : get(collection, 'root', {});
   const collectionPath = collection?.pathname;
   const headers = {};
+  // TODO: move the encode url to somewhere after interpolation is done
+  const url = preferencesUtil.shouldEncodeUrl() ? encodeUrl(request.url) : request.url;
+
+
   let contentTypeDefined = false;
-  let url = request.url;
-  
+
   each(get(collectionRoot, 'request.headers', []), (h) => {
     if (h.enabled && h.name?.toLowerCase() === 'content-type') {
       contentTypeDefined = true;

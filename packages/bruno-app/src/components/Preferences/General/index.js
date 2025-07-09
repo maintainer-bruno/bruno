@@ -49,6 +49,7 @@ const General = ({ close }) => {
         enabled: get(preferences, 'request.keepDefaultCaCertificates.enabled', true)
       },
       timeout: preferences.request.timeout,
+      encodeUrl: get(preferences, 'request.encodeUrl', true),
       storeCookies: get(preferences, 'request.storeCookies', true),
       sendCookies: get(preferences, 'request.sendCookies', true)
     },
@@ -77,6 +78,7 @@ const General = ({ close }) => {
             enabled: newPreferences.keepDefaultCaCertificates.enabled
           },
           timeout: newPreferences.timeout,
+          encodeUrl: newPreferences.encodeUrl,
           storeCookies: newPreferences.storeCookies,
           sendCookies: newPreferences.sendCookies
         }
@@ -210,6 +212,19 @@ const General = ({ close }) => {
           />
           <label className="block ml-2 select-none" htmlFor="sendCookies">
             Send Cookies automatically
+          </label>
+        </div>
+        <div className="flex items-center mt-2">
+          <input
+            id="encodeUrl"
+            type="checkbox"
+            name="encodeUrl"
+            checked={formik.values.encodeUrl}
+            onChange={formik.handleChange}
+            className="mousetrap mr-0"
+          />
+          <label className="block ml-2 select-none" htmlFor="encodeUrl">
+            Encode URL automatically
           </label>
         </div>
         <div className="flex flex-col mt-6">

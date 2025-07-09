@@ -20,6 +20,7 @@ const defaultPreferences = {
     },
     storeCookies: true,
     sendCookies: true,
+    encodeUrl: true,
     timeout: 0
   },
   font: {
@@ -55,6 +56,7 @@ const preferencesSchema = Yup.object().shape({
     }),
     storeCookies: Yup.boolean(),
     sendCookies: Yup.boolean(),
+    encodeUrl: Yup.boolean(),
     timeout: Yup.number()
   }),
   font: Yup.object().shape({
@@ -157,6 +159,9 @@ const preferencesUtil = {
   },
   getResponsePaneOrientation: () => {
     return get(getPreferences(), 'layout.responsePaneOrientation', 'horizontal');
+  },
+  shouldEncodeUrl: () => {
+    return get(getPreferences(), 'request.encodeUrl', true);
   },
   getSystemProxyEnvVariables: () => {
     const { http_proxy, HTTP_PROXY, https_proxy, HTTPS_PROXY, no_proxy, NO_PROXY } = process.env;
