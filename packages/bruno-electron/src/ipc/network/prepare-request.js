@@ -2,6 +2,7 @@ const { get, each, filter, find } = require('lodash');
 const decomment = require('decomment');
 const crypto = require('node:crypto');
 const fs = require('node:fs/promises');
+const { encodeUrl } = require('@usebruno/requests').utils;
 const { getTreePathFromCollectionToItem, mergeHeaders, mergeScripts, mergeVars, getFormattedCollectionOauth2Credentials, mergeAuth } = require('../../utils/collection');
 const { buildFormUrlEncodedPayload } = require('../../utils/form-data');
 const path = require('node:path');
@@ -416,6 +417,7 @@ const prepareRequest = async (item, collection = {}, abortController) => {
   axiosRequest.oauth2CredentialVariables = request.oauth2CredentialVariables;
   axiosRequest.assertions = request.assertions;
   axiosRequest.oauth2Credentials = request.oauth2Credentials;
+  axiosRequest.settings = request.settings;
 
   return axiosRequest;
 };
