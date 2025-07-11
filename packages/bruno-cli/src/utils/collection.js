@@ -10,7 +10,7 @@ const chalk = require('chalk');
 
 const createCollectionJsonFromPathname = (collectionPath) => {
   const environmentsPath = path.join(collectionPath, `environments`);
-    
+
   // get the collection bruno json config [<collection-path>/bruno.json]
   const brunoConfig = getCollectionBrunoJsonConfig(collectionPath);
 
@@ -30,7 +30,7 @@ const createCollectionJsonFromPathname = (collectionPath) => {
       if (stats.isDirectory()) {
         if (filePath === environmentsPath) continue;
         if (filePath.startsWith('.git') || filePath.startsWith('node_modules')) continue;
-        
+
         // get the folder root
         let folderItem = { name: file, pathname: filePath, type: 'folder', items: traverse(filePath) }
         const folderBruJson = getFolderRoot(filePath);
@@ -47,6 +47,7 @@ const createCollectionJsonFromPathname = (collectionPath) => {
         // get the request item
         const bruContent = fs.readFileSync(filePath, 'utf8');
         const requestItem = bruToJson(bruContent);
+
         currentDirItems.push({
           name: file,
           pathname: filePath,
@@ -397,7 +398,7 @@ const safeWriteFileSync = (filePath, content) => {
 
 /**
  * Creates a Bruno collection directory structure from a Bruno collection object
- * 
+ *
  * @param {Object} collection - The Bruno collection object
  * @param {string} dirPath - The output directory path
  */
@@ -409,9 +410,9 @@ const createCollectionFromBrunoObject = async (collection, dirPath) => {
     type: 'collection',
     ignore: ['node_modules', '.git']
   };
-  
+
   fs.writeFileSync(
-    path.join(dirPath, 'bruno.json'), 
+    path.join(dirPath, 'bruno.json'),
     JSON.stringify(brunoConfig, null, 2)
   );
 
@@ -441,7 +442,7 @@ const createCollectionFromBrunoObject = async (collection, dirPath) => {
 
 /**
  * Recursively processes collection items to create files and folders
- * 
+ *
  * @param {Array} items - Collection items
  * @param {string} currentPath - Current directory path
  */
@@ -461,7 +462,7 @@ const processCollectionItems = async (items = [], currentPath) => {
         }
         const folderContent = await jsonToCollectionBru(
           item.root,
-          true 
+          true
         );
         safeWriteFileSync(folderBruFilePath, folderContent);
       }

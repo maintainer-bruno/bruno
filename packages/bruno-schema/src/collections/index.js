@@ -308,6 +308,12 @@ const requestSchema = Yup.object({
     .noUnknown(true)
     .strict()
     .nullable(),
+  settings: Yup.object({
+    encodeUrl: Yup.boolean().nullable()
+  })
+    .noUnknown(true)
+    .strict()
+    .nullable(),
   assertions: Yup.array().of(keyValueSchema).nullable(),
   tests: Yup.string().nullable(),
   docs: Yup.string().nullable()

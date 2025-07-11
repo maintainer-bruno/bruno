@@ -324,6 +324,7 @@ const prepareRequest = (item = {}, collection = {}) => {
   axiosRequest.collectionVariables = request.collectionVariables;
   axiosRequest.folderVariables = request.folderVariables;
   axiosRequest.requestVariables = request.requestVariables;
+  axiosRequest.settings = request.settings;
 
   return axiosRequest;
 };

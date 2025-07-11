@@ -508,6 +508,20 @@ export const collectionsSlice = createSlice({
         }
       }
     },
+    updateRequestSettings: (state, action) => {
+      const collection = findCollectionByUid(state.collections, action.payload.collectionUid);
+
+      if (collection) {
+        const item = findItemInCollection(collection, action.payload.itemUid);
+
+        if (item && isItemARequest(item)) {
+          if (!item.draft) {
+            item.draft = cloneDeep(item);
+          }
+          item.draft.request.settings = { ...item.draft.request.settings, ...action.payload.settings };
+        }
+      }
+    },
     updateAuth: (state, action) => {
       const collection = findCollectionByUid(state.collections, action.payload.collectionUid);
 
@@ -2358,6 +2372,7 @@ export const {
   toggleCollection,
   toggleCollectionItem,
   requestUrlChanged,
+  updateRequestSettings,
   updateAuth,
   addQueryParam,
   setQueryParams,

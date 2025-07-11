@@ -255,6 +255,7 @@ export const transformCollectionToSaveToExportAsFile = (collection, options = {}
           vars: si.request.vars,
           assertions: si.request.assertions,
           tests: si.request.tests,
+          settings: si.request.settings,
           docs: si.request.docs
         };
 
@@ -547,6 +548,7 @@ export const transformRequestToSaveToFilesystem = (item) => {
       vars: _item.request.vars,
       assertions: _item.request.assertions,
       tests: _item.request.tests,
+      settings: _item.request.settings,
       docs: _item.request.docs
     }
   };
